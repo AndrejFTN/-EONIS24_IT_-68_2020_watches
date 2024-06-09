@@ -1,0 +1,175 @@
+<p-menubar [model]="items">
+  <div>
+    <button *ngIf="isAdmin$ | async" routerLink="/pending-orders" pButton label="Pending Requests" icon="pi pi-bell" style="margin-left:.25em"></button>
+    <button *ngIf="isAdmin$ | async" (click)="openAddWatchDialog()" pButton label="Add new watch" icon="pi pi-plus" style="margin-left:.25em"></button>
+    <button (click)="openRequestDialog()" pButton label="Send Request" icon="pi pi-envelope" style="margin-left:.25em"></button>
+    <button *ngIf="isLoggedIn$ | async" (click)="logout()" pButton label="Logout" icon="pi pi-sign-out" style="margin-left:.25em"></button>
+    <button *ngIf="!(isLoggedIn$ | async)" (click)="login()" pButton label="Login" icon="pi pi-sign-in" style="margin-left:.25em"></button>
+  </div>
+</p-menubar>
+
+<p-dialog class="request-dialog" header="Request" [modal]="true" [visible]="requestDialog$ | async"
+          [style]="{'width':'400px', 'text-align':'center'}" [closable]="false">
+
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control" pInputText [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }" />
+      </span>
+      <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+        <div *ngIf="formControls.name.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="email">E-Mail</label>
+        <input type="text" id="email" formControlName="email" class="form-control" pInputText [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
+      </span>
+      <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+        <div *ngIf="formControls.email.errors.required">E-Mail is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" formControlName="subject" class="form-control" pInputText [ngClass]="{ 'is-invalid': submitted && formControls.subject.errors }" />
+      </span>
+      <div *ngIf="submitted && formControls.subject.errors" class="invalid-feedback">
+        <div *ngIf="formControls.subject.errors.required">Subject is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="text">Text</label>
+        <textarea type="text" id="text" formControlName="text" class="form-control" pInputTextarea [ngClass]="{ 'is-invalid': submitted && formControls.text.errors }">
+          </textarea>
+      </span>
+      <div *ngIf="submitted && formControls.text.errors" class="invalid-feedback">
+        <div *ngIf="formControls.text.errors.required">Text is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div>
+      <button [disabled]="loading" pButton label="Send request" style="margin-left:.25em"></button>
+    </div>
+  </form>
+  <button (click)="closeRequestDialog()" [disabled]="loading" pButton label="Close" style="margin-left:.25em"></button>
+</p-dialog>
+
+
+<p-dialog class="add-watch-dialog" header="Add new watch" [modal]="true" [visible]="addWatchDialog$ | async"
+          [style]="{'width':'400px', 'text-align':'center'}" [closable]="false">
+
+  <form [formGroup]="addWatchForm" (ngSubmit)="submitAddWatch()">
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="model">Model: </label>
+        <input type="text" id="model" formControlName="model" class="form-control" pInputText [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.model.errors }" />
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.model.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.model.errors.required">Model is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="color">Color: </label>
+        <input type="text" id="color" formControlName="color" class="form-control" pInputText [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.color.errors }" />
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.color.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.color.errors.required">Color is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="brand">Brand: </label>
+        <input type="text" id="brand" formControlName="brand" class="form-control" pInputText [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.brand.errors }" />
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.brand.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.brand.errors.required">Brand is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="manufactureDate">Manufacture date: </label>
+        <input type="text" id="manufactureDate" formControlName="manufactureDate" class="form-control" pInputTextarea [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.manufactureDate.errors }"/>
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.manufactureDate.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.manufactureDate.errors.required">Manufacture date is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="mechanism">Mechanism: </label>
+        <input type="text" id="mechanism" formControlName="mechanism" class="form-control" pInputTextarea [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.mechanism.errors }"/>
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.mechanism.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.mechanism.errors.required">Mechanism is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="price">Price: </label>
+        <input type="text" id="price" formControlName="price" class="form-control" pInputTextarea [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.price.errors }"/>
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.price.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.price.errors.required">Price is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="available">Available: </label>
+        <input type="text" id="available" formControlName="available" class="form-control" pInputTextarea [ngClass]="{ 'is-invalid': addWatchSubmitted && addWatchFormControls.available.errors }"/>
+      </span>
+      <div *ngIf="addWatchSubmitted && addWatchFormControls.available.errors" class="invalid-feedback">
+        <div *ngIf="addWatchFormControls.available.errors.required">Available is required</div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div>
+      <label>Image: </label>
+      <input type="file" formControlName="image" (change)="onFileChange($event, 'image')"/>
+    </div>
+
+    <br/>
+
+    <div>
+      <button [disabled]="addWatchLoading" pButton label="Add watch" style="margin-left:.25em"></button>
+    </div>
+  </form>
+  <button (click)="closeAddWatchDialog()" [disabled]="addWatchLoading" pButton label="Close" style="margin-left:.25em"></button>
+</p-dialog>
+

@@ -1,0 +1,77 @@
+.watch-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.watch-info {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.watch-info td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.watch-label {
+  font-weight: bold;
+  text-align: right;
+  padding-right: 10px;
+  color: #333;
+}
+
+.watch-price {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.cart-action {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 600px;
+}
+
+.add-to-cart-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  color: white;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+.add-to-cart-button:hover {
+  background-color: #4cae4c;
+  border-color: #4cae4c;
+}
+
+.not-found {
+  font-size: 18px;
+  color: #d9534f;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.not-found a {
+  color: #0275d8;
+  text-decoration: underline;
+}

@@ -1,0 +1,40 @@
+<content-wrapper offset="1" size="10" columns="12">
+  <div class="order-header">
+    <h2>Order Details</h2>
+  </div>
+
+  <div class="order-details">
+    <div class="order-info">
+      <label><strong>Date:</strong> {{order.dateOfOrder}}</label>
+      <label><strong>Name:</strong> {{order.name}}</label>
+      <label><strong>Email:</strong> {{order.mail}}</label>
+      <label><strong>Phone:</strong> {{order.phone}}</label>
+      <label><strong>Address:</strong> {{order.address}}</label>
+      <label><strong>Zip Code:</strong> {{order.zipCode}}</label>
+      <label><strong>Order ID:</strong> {{order.order_ID}}</label>
+      <label><strong>Status:</strong> {{order.state}}</label>
+    </div>
+
+    <div class="ordered-watches">
+      <h3>Ordered Watches</h3>
+      <div *ngFor="let orderedWatch of order.orderItems" class="watch-item">
+        <ng-container *ngIf="orderedWatch">
+          <div class="watch-details">
+            <label><strong>Brand:</strong> {{orderedWatch.brand}}</label>
+            <label><strong>Model:</strong> {{orderedWatch.model}}</label>
+            <label><strong>Color:</strong> {{orderedWatch.color}}</label>
+            <label><strong>Price:</strong> {{orderedWatch.price}}</label>
+            <label><strong>Amount:</strong> {{orderedWatch.amount}}</label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #notFound>
+    <div class="not-found-message">
+      Sorry, some unexpected problem happened and we could not find the requested order in our database. Please go to
+      <a routerLink="/order">Order overview page</a>.
+    </div>
+  </ng-template>
+</content-wrapper>

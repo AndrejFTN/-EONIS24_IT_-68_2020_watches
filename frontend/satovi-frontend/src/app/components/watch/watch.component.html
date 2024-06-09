@@ -1,0 +1,42 @@
+<content-wrapper offset="1" size="10" columns="12">
+  <div class="watch-details">
+    <table class="watch-info">
+      <tr>
+        <td class="watch-label">Brand:</td>
+        <td>{{watch.brand}}</td>
+      </tr>
+      <tr>
+        <td class="watch-label">Color:</td>
+        <td>{{watch.color}}</td>
+      </tr>
+      <tr>
+        <td class="watch-label">Manufacture Date:</td>
+        <td>{{watch.manufactureDate}}</td>
+      </tr>
+      <tr>
+        <td class="watch-label">Model:</td>
+        <td>{{watch.model}}</td>
+      </tr>
+      <tr>
+        <td class="watch-label">Mechanism:</td>
+        <td>{{watch.mechanism}}</td>
+      </tr>
+      <tr>
+        <td class="watch-label">Price:</td>
+        <td class="watch-price">{{watch.price | currency}}</td>
+      </tr>
+      <tr>
+        <td class="watch-label">Quantity:</td>
+        <td><input type="number" [(ngModel)]="quantity" min="1" class="quantity-input"></td>
+      </tr>
+    </table>
+    <div class="cart-action">
+      <button (click)="addItemToCart(watch.watch_id, quantity)" pButton label="Add to cart" icon="pi pi-shopping-bag" class="add-to-cart-button"></button>
+    </div>
+  </div>
+  <ng-template #notFound>
+    <div class="not-found">
+      Sorry, some unexpected problem happened and we could not find the requested watch in our database. Please go to <a routerLink="/watches">home page</a>.
+    </div>
+  </ng-template>
+</content-wrapper>

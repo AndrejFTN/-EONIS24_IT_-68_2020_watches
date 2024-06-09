@@ -1,0 +1,23 @@
+<content-wrapper offset="1" size="10" columns="12">
+  <div class="orders-header">
+    <h2>Pending Orders</h2>
+  </div>
+
+  <div *ngFor="let pendingOrder of pendingOrders" class="order-item">
+    <div class="order-info">
+      <label><strong>Date:</strong> {{pendingOrder.dateOfOrder}}</label>
+      <label><strong>Name:</strong> {{pendingOrder.name}}</label>
+      <label><strong>Order ID:</strong> {{pendingOrder.order_ID}}</label>
+      <label><strong>Status:</strong> {{pendingOrder.state}}</label>
+    </div>
+    <div class="order-actions">
+      <button [routerLink]="'/order/' + pendingOrder.order_ID" pButton label="Open order" class="open-order-button"></button>
+      <button *ngIf="pendingOrder.state === 'Paid'" (click)="completeOrder(pendingOrder.order_ID!)" pButton label="Complete order" class="complete-order-button"></button>
+<!--      <button *ngIf="pendingOrder.state === 'Pending' && isAdmin" (click)="showPaymentForm(pendingOrder.order_ID!, pendingOrder.orderItems!)" pButton label="Pay order" class="pay-order-button"></button>-->
+    </div>
+<!--    <div style="width: 300px" *ngIf="paymentFormVisibleForOrder === pendingOrder.order_ID">-->
+<!--      <app-payment-form [orderID]="pendingOrder.order_ID" (paymentCompleted)="handlePaymentCompleted()"-->
+<!--                        [amount]=this.amount></app-payment-form>-->
+<!--    </div>-->
+  </div>
+</content-wrapper>

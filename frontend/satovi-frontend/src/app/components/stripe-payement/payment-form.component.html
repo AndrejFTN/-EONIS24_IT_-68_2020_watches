@@ -1,0 +1,7 @@
+<div *ngIf="stripe">
+  <form (submit)="handleSubmit($event)">
+    <div id="card-element"></div>
+    <button type="submit" [disabled]="processing || !stripe">Pay</button>
+  </form>
+  <div *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>

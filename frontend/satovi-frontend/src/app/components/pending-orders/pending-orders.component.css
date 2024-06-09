@@ -1,0 +1,29 @@
+.orders-header h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.order-item {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-info label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.order-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.open-order-button,
+.complete-order-button {
+  margin-left: .25em;
+}

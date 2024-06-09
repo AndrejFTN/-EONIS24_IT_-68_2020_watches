@@ -1,0 +1,42 @@
+<content-wrapper offset="1" size="10" columns="12">
+</content-wrapper>
+
+<div class="watches-container">
+  <div *ngFor="let row of watches" class="watch-card">
+    <div class="watch-image">
+      <img *ngIf="row.imageUrl" [src]="row.imageUrl" alt="Watch Image">
+    </div>
+    <div class="watch-details">
+      <p><strong>Brand:</strong> {{row.brand}}</p>
+      <p><strong>Color:</strong> {{row.color}}</p>
+      <p><strong>Model:</strong> {{row.model}}</p>
+      <p><strong>Mechanism:</strong> {{row.mechanism}}</p>
+      <p><strong>Price:</strong> {{row.price}}</p>
+      <p><strong>Available:</strong> {{row.available}}</p>
+      <div class="button-container">
+        <button *ngIf="row && row.available" (click)="openWatch(row.watch_id)" pButton label="Open watch"></button>
+        <button *ngIf="(isAdmin | async) && row.watch_id" class="amount-change-item-button" (click)="openAddAmountDialog(row.watch_id!)" pButton label="Add amount"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog class="add-watch-dialog" header="Add amount for watch" [modal]="true" [visible]="addAmount | async"
+          [style]="{'width':'400px', 'text-align':'center'}" [closable]="false">
+
+  <form [formGroup]="addAmountForm">
+    <div class="form-group">
+      <span class="ui-float-label">
+        <label for="amount">Amount</label>
+        <input type="text" id="amount" formControlName="amount" class="form-control" pInputText [ngClass]="{ 'is-invalid': addAmountSubmitted && addAmountFormControls.amount.errors }" />
+      </span>
+      <div *ngIf="addAmountSubmitted && addAmountFormControls.amount.errors" class="invalid-feedback">
+        <div *ngIf="addAmountFormControls.amount.errors.required">Amount is required</div>
+      </div>
+    </div>
+    <div>
+      <button (click)="submitAddAmount()" [disabled]="loading" pButton label="Add"></button>
+      <button (click)="closeAddAmountDialog()" [disabled]="loading" pButton label="Close"></button>
+    </div>
+  </form>
+</p-dialog>
