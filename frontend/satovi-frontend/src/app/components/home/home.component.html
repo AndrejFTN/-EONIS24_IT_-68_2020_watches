@@ -1,4 +1,12 @@
 <content-wrapper offset="1" size="10" columns="12">
+  <div class="search-container">
+    <input type="text" placeholder="Brand" [(ngModel)]="searchBrand">
+    <input type="text" placeholder="Color" [(ngModel)]="searchColor">
+    <input type="text" placeholder="Mechanism" [(ngModel)]="searchMechanism">
+    <input type="number" placeholder="Min Price" [(ngModel)]="searchMinPrice">
+    <input type="number" placeholder="Max Price" [(ngModel)]="searchMaxPrice">
+    <button (click)="searchWatches()">Search</button>
+  </div>
 </content-wrapper>
 
 <div class="watches-container">

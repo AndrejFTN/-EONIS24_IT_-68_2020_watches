@@ -10,7 +10,7 @@ describe('WatchComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ WatchComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

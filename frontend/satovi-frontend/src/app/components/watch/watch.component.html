@@ -1,4 +1,7 @@
 <content-wrapper offset="1" size="10" columns="12">
+  <div class="watch-image">
+    <img *ngIf="watch.imageUrl" [src]="watch.imageUrl" alt="Watch Image" class="watch-img">
+  </div>
   <div class="watch-details">
     <table class="watch-info">
       <tr>
@@ -40,3 +43,4 @@
     </div>
   </ng-template>
 </content-wrapper>
+

@@ -22,6 +22,12 @@ export class HomeComponent implements OnInit {
   loading?: boolean;
   public isAdmin = new BehaviorSubject<boolean>(false);
 
+  searchBrand?: string;
+  searchColor?: string;
+  searchMechanism?: string;
+  searchMinPrice?: number;
+  searchMaxPrice?: number;
+
   constructor(private watchService: WatchService,
               private router: Router,
               private loginService: LoginService,
@@ -105,5 +111,21 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
+  searchWatches() {
+    this.watchService.filterWatches(
+      this.searchColor,
+      this.searchBrand,
+      this.searchMechanism,
+      this.searchMinPrice,
+      this.searchMaxPrice
+    ).subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+        const watch = data[i];
+        if (watch.image) {
+          watch.imageUrl = 'data:image/jpeg;base64,' + watch.image;
+        }
+      }
+      this.watches = data;
+    });
+  }
 }

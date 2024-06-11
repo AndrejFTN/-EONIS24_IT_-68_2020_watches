@@ -57,7 +57,8 @@ export class WatchService {
     if (maxPrice) {
       queryParams = queryParams.append('maxPriceFilter', maxPrice);
     }
-    return this.http.delete<boolean>(this.apiGatewayURL + 'deleteWatch', {params:queryParams});
+    return this.http.get<Watch[]>(this.apiGatewayURL + 'filterWatches', {params:queryParams});
   }
 
 }
+

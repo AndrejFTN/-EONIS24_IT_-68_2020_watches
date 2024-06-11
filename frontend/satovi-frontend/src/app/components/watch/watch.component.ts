@@ -32,6 +32,9 @@ export class WatchComponent implements OnInit {
     this.route.params.pipe(
       switchMap(params => this.watchService.getOneWatch(params.id))
     ).subscribe(data => {
+      if (data.image) {
+        data.imageUrl = 'data:image/jpeg;base64,' + data.image;
+      }
       this.watch = data;
     });
   }
